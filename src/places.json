@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Phoenix Park",
+        "latitude": "53.355882",
+        "longitude": "-6.329813"
+    },
+        {
+        "title": "Guinness Storehouse",
+        "latitude": "53.341874",
+        "longitude": "-6.286709"
+    },
+        {
+        "title": "Irish Museum of Modern Art",
+        "latitude": "53.342917",
+        "longitude": "-6.300048"
+    },
+        {
+        "title": "St Stephens Green",
+        "latitude": "53.338174",
+        "longitude": "-6.259119"
+    },
+        {
+        "title": "Dublin Zoo",
+        "latitude": "53.356194",
+        "longitude": "-6.305290"
+    },
+        {
+        "title": "The National Wax Museum Plus",
+        "latitude": "53.346586",
+        "longitude": "-6.258788"
+    },
+        {
+        "title": "Irish Whiskey Museum",
+        "latitude": "53.344156",
+        "longitude": "-6.259554"
+    },
+        {
+        "title": "Christ Church Cathedral",
+        "latitude": "53.343513",
+        "longitude": "-6.271060"
+    }
+]
