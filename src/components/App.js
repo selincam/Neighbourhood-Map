@@ -42,6 +42,7 @@ export default class App extends Component {
     return (
       <React.Fragment>
         <Sidebar
+          aria-label="Side Menu"
           sidebarStyle={sidebarStyle}
           selectedPlaces={selectedPlaces}
           handleViewSidebar={this.handleViewSidebar}
@@ -52,7 +53,8 @@ export default class App extends Component {
         <div id="fullContent" style={this.state.fullContentStyle}>
           <span className="burgerIcon" onClick={() => this.handleViewSidebar(true)}>&#9776;</span>
           <div id="mapContent">
-            <MapContainer 
+            <MapContainer
+              aria-label="Map Container"
               selectedPlaces={selectedPlaces}
             />
           </div>

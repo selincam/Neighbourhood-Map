@@ -34,7 +34,7 @@ export default class Sidebar extends Component {
       <button className="filterButton" type="button" onClick={() => this.filterPlaces()}>Filter</button>
       {
         selectedPlaces.map((place, id) => (
-          <a href="javascript:void(0)" key={id}>{place.title}</a>
+          <a href="javascript:void(0)" key={id} aria-label="Place">{place.title}</a>
         ))
       }
     </div>)

@@ -51,6 +51,7 @@ class MapContainer extends Component {
           this.props.selectedPlaces.map((place, i) => (
             
             <Marker
+              aria-label="Marker"
               key={i}
               onClick={this.onMarkerClick}
               title={place.title}
@@ -64,6 +65,7 @@ class MapContainer extends Component {
         }
 
         <InfoWindow 
+          aria-label="Info Window"
           marker={this.state.activeMarker}
           onClose={this.onInfoWindowClose}
           visible={this.state.showingInfoWindow}>
