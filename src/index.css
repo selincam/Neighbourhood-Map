@@ -17,16 +17,16 @@ body {
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 8px;
   text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+  font-size: 16px;
+  color: white;
   display: block;
   transition: 0.3s;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: #778899;
 }
 
 .sidenav .closebtn {
@@ -38,15 +38,16 @@ body {
 }
 
 .burgerIcon {
-  font-size: 30px;
+  font-size: 26px;
   cursor: pointer;
-  color: #8eb2e4;
+  color: rgb(3, 144, 190);
   position: absolute;
   height: 5%;
   width: 100%;
   overflow: auto;
   background-color: #000;
   margin: 0;
+  padding-left: 4px;
 }
 
 #fullContent {
@@ -64,4 +65,37 @@ body {
 @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}
 .sidenav a {font-size: 18px;}
+}
+
+.search {
+  box-sizing: border-box;
+  border: 2px solid rgb(3, 144, 190);
+  border-radius: 4px;
+  font-size: 11px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 8px 8px 8px 8px;
+  margin-left: 8px;
+}
+
+.filterButton {
+  background-color: rgb(3, 144, 190); 
+  color: white; 
+  border: 2px solid rgb(3, 144, 190);
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 11px;
+  margin: 4px 6px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 8px 8px 8px 8px;
+}
+
+.filterButton:hover {
+  background-color: white;
+  color: black;
 }

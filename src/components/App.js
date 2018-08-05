@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MapContainer from "./MapContainer";
+import Sidebar from "./Sidebar";
 import places from '../places.json';
 
 export default class App extends Component {
@@ -8,10 +9,20 @@ export default class App extends Component {
 
     this.state = {
       sidebarStyle: {width: '0px'},
-      fullContentStyle: {marginLeft: '0px'}
+      fullContentStyle: {marginLeft: '0px'},
+      selectedPlaces: places
     }
+
+    this.handleQuery = this.handleQuery.bind(this);
   }
 
+  // When filter clicked, gets the query and filters the places accordingly.
+  handleQuery(query) {
+    const selectedPlaces = places.filter(place => place.title.includes(query));
+    this.setState({selectedPlaces});
+  }
+
+  // Provides functionality to hide or display the sidebar menu.
   handleViewSidebar = (shouldBeDisplayed) => {
     if (shouldBeDisplayed) {
       this.setState({
@@ -26,35 +37,24 @@ export default class App extends Component {
     }
   }
 
-  filterPlaces = () => {
-    // TODO: Get query and filter places
-    console.log("Filter button clicked!");
-  }
-
-  handleSelectedMarker = (marker, id) => {
-    // TODO: Center the map according to that marker and show info window
-    console.log("Title= " + marker.title + " id= " + id);
-  }
-
   render() {
+    const { sidebarStyle, selectedPlaces } = this.state;
     return (
       <React.Fragment>
-        <div id="left-sidebar" className="sidenav" style={this.state.sidebarStyle}>
-          <a href="javascript:void(0)" className="closebtn" onClick={() => this.handleViewSidebar(false)}>&times;</a>
-          <input type="text" placeholder="Search" />
-          <button type="button" onClick={() => this.filterPlaces()}>Filter</button>
-          {
-            places.map((place, id) => (
-              <a href="javascript:void(0)" key={id} onClick={() => this.handleSelectedMarker(place, id)}>{place.title}</a>
-            ))
-          }
-          
-        </div>
-        
+        <Sidebar
+          sidebarStyle={sidebarStyle}
+          selectedPlaces={selectedPlaces}
+          handleViewSidebar={this.handleViewSidebar}
+          handleSelectedMarker={this.handleSelectedMarker}
+          handleQuery={this.handleQuery}
+          />
+
         <div id="fullContent" style={this.state.fullContentStyle}>
           <span className="burgerIcon" onClick={() => this.handleViewSidebar(true)}>&#9776;</span>
           <div id="mapContent">
-            <MapContainer />
+            <MapContainer 
+              selectedPlaces={selectedPlaces}
+            />
           </div>
         </div>
       </React.Fragment>
