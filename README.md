@@ -1,9 +1,9 @@
-MyReads Project
-===============================
+Neighbourhood Map React Project
+=======================================
 
 #### Table of Contents
-* [How to Run](#howToRun)
-* [Project Overview](#ProjectOverview)
+* [How to Run](#howtorun)
+* [Project Overview](#projectoverview)
 * [Technology](#technology)
 
 ## How to Run
