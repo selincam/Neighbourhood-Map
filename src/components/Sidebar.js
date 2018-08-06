@@ -29,9 +29,25 @@ export default class Sidebar extends Component {
 
     return (
     <div id="left-sidebar" className="sidenav" style={sidebarStyle}>
-      <a href="javascript:void(0)" className="closebtn" onClick={() => this.props.handleViewSidebar(false)}>&times;</a>
-      <input className="search" type="text" placeholder="Search" onChange={this.onChangeQuery} />
-      <button className="filterButton" type="button" onClick={() => this.filterPlaces()}>Filter</button>
+      <a href="javascript:void(0)"
+        className="closebtn" 
+        onClick={() => this.props.handleViewSidebar(false)}
+        tabIndex="20">
+        &times;
+      </a>
+      <input 
+        className="search" 
+        type="text" 
+        placeholder="Search" 
+        onChange={this.onChangeQuery} 
+        tabIndex="2" />
+      <button 
+        className="filterButton" 
+        type="button" 
+        onClick={() => this.filterPlaces()}
+        tabIndex="3">
+        Filter
+      </button>
       {
         selectedPlaces.map((place, id) => (
           <a href="javascript:void(0)" key={id} aria-label="Place">{place.title}</a>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import places from '../places.json';
 
 class MapContainer extends Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class MapContainer extends Component {
     this.state = {
       showingInfoWindow: false,
       activeMarker: {},
-      selectedPlace: {}
+      selectedPlace: {},
     }
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -35,15 +34,17 @@ class MapContainer extends Component {
 
   // Shows the map and lists filtered places on map.
   render() {
-    let initialCenter = {
-      lat: places[0].latitude,
-      lng: places[0].longitude
-    };
+    const { selectedPlaces } = this.props;
+    let initialCenter = {};
+    if (selectedPlaces[0]) {
+      initialCenter = {
+        lat: this.props.selectedPlaces[0].latitude,
+        lng: this.props.selectedPlaces[0].longitude
+      };
+    }
     return (
       <Map
-        initialCenter={
-          initialCenter
-        }
+        initialCenter={initialCenter}
         google={this.props.google} 
         zoom={12}>
 
@@ -56,6 +57,7 @@ class MapContainer extends Component {
               onClick={this.onMarkerClick}
               title={place.title}
               description={place.description}
+              formattedAddress={place.formattedAddress}
               position={{lat: place.latitude, lng: place.longitude}}
               animation={
                 place.title === this.state.activeMarker.title ?
@@ -64,14 +66,15 @@ class MapContainer extends Component {
           ))
         }
 
-        <InfoWindow 
+        <InfoWindow
           aria-label="Info Window"
           marker={this.state.activeMarker}
           onClose={this.onInfoWindowClose}
           visible={this.state.showingInfoWindow}>
           <div>
-            <h3>{this.state.activeMarker.title}</h3>
-            <h4>{this.state.activeMarker.description}</h4>
+            <h4>{this.state.activeMarker.title}</h4>
+            <p>{this.state.activeMarker.description}</p>
+            <p>{this.state.activeMarker.formattedAddress}</p>
           </div>
         </InfoWindow>
       </Map>
@@ -79,7 +82,12 @@ class MapContainer extends Component {
   }
 }
 
+const LoadingContainer = (props) => (
+  <div>Loading Google Maps. If it takes more than 5 seconds, please check Javascript console for any errors.</div>
+)
+
 // Google's API Key
 export default GoogleApiWrapper({
-  apiKey: ("AIzaSyB868uN5xDP2HfMsvu08Z8-TZMR1t33-Tg")
+  apiKey: ("AIzaSyB868uN5xDP2HfMsvu08Z8-TZMR1t33-Tg"),
+  LoadingContainer: LoadingContainer
 })(MapContainer)
