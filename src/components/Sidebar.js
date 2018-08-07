@@ -25,11 +25,11 @@ export default class Sidebar extends Component {
 
   // Lists all places and provides search functionality.
   render() {
-    const { selectedPlaces, sidebarStyle } = this.props;
+    const { filteredPlaces, sidebarStyle, onPlaceSelected } = this.props;
 
     return (
     <div id="left-sidebar" className="sidenav" style={sidebarStyle}>
-      <a href="javascript:void(0)"
+      <a
         className="closebtn" 
         onClick={() => this.props.handleViewSidebar(false)}
         tabIndex="20">
@@ -49,8 +49,14 @@ export default class Sidebar extends Component {
         Filter
       </button>
       {
-        selectedPlaces.map((place, id) => (
-          <a href="javascript:void(0)" key={id} aria-label="Place">{place.title}</a>
+        filteredPlaces.map((place, id) => (
+          <a
+            key={id} 
+            aria-label="Place"
+            onClick={() => onPlaceSelected(place)}
+            >
+            {place.title}
+          </a>
         ))
       }
     </div>)

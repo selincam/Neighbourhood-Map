@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import MapContainer from "./MapContainer";
 import Sidebar from "./Sidebar";
 import places from '../places.json';
+import MapComponent from "./MapComponent";
 
 const CLIENT_ID = "LTXLHYWBPC0VWCIO1RRKHD213U14ODDRZLLV20IDK0YROT53";
 const CLIENT_SECRET = "QMTZCKC5NCG5TA3WRGTSNUFYW2XNUNSUVKIZWZEHZG3KLC0T";
@@ -14,11 +14,15 @@ export default class App extends Component {
     this.state = {
       sidebarStyle: {width: '0px'},
       fullContentStyle: {marginLeft: '0px'},
-      selectedPlaces: places,
+      filteredPlaces: places,
       allPlaces: places,
+      selectedPlace: {},
     }
 
     this.handleQuery = this.handleQuery.bind(this);
+    this.handleViewSidebar = this.handleViewSidebar.bind(this);
+    this.onInfoWindowClose = this.onInfoWindowClose.bind(this);
+    this.onPlaceSelected = this.onPlaceSelected.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +50,7 @@ export default class App extends Component {
           errors.push("An error occurred reading from FourSquare API for the venue:" + place.title + "\n");
         }
       );
+      return "";
     });
 
     setTimeout(function(){ 
@@ -57,12 +62,12 @@ export default class App extends Component {
 
   // When filter clicked, gets the query and filters the places accordingly.
   handleQuery(query) {
-    const selectedPlaces = this.state.allPlaces.filter(place => place.title.includes(query));
-    this.setState({selectedPlaces});
+    const filteredPlaces = this.state.allPlaces.filter(place => place.title.includes(query));
+    this.setState({filteredPlaces});
   }
 
   // Provides functionality to hide or display the sidebar menu.
-  handleViewSidebar = (shouldBeDisplayed) => {
+  handleViewSidebar(shouldBeDisplayed) {
     if (shouldBeDisplayed) {
       this.setState({
         sidebarStyle: {width: '250px'},
@@ -76,16 +81,31 @@ export default class App extends Component {
     }
   }
 
+  // It closes open info window.
+  onInfoWindowClose() {
+    this.setState({
+      selectedPlace: {},
+    });
+  }
+
+  // It opens info window related with the chosen marker.
+  onPlaceSelected(place) {
+    this.setState({
+      selectedPlace: place,
+    });
+  }
+
   render() {
-    const { sidebarStyle, selectedPlaces } = this.state;
+    const { sidebarStyle, filteredPlaces, selectedPlace } = this.state;
+    const style = { height: `calc(95vh)` };
     return (
       <React.Fragment>
         <Sidebar
           aria-label="Side Menu"
           sidebarStyle={sidebarStyle}
-          selectedPlaces={selectedPlaces}
+          filteredPlaces={filteredPlaces}
           handleViewSidebar={this.handleViewSidebar}
-          handleSelectedMarker={this.handleSelectedMarker}
+          onPlaceSelected={this.onPlaceSelected}
           handleQuery={this.handleQuery}
           />
 
@@ -94,9 +114,15 @@ export default class App extends Component {
             tabIndex="1"
             onClick={() => this.handleViewSidebar(true)}>&#9776;</span>
           <div id="mapContent">
-            <MapContainer
-              aria-label="Map Container"
-              selectedPlaces={selectedPlaces}
+            <MapComponent
+              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB868uN5xDP2HfMsvu08Z8-TZMR1t33-Tg&v=3.exp&libraries=places"
+              loadingElement={<div style={style} />}
+              containerElement={<div style={style} />}
+              mapElement={<div style={style} />}
+              filteredPlaces={filteredPlaces}
+              selectedPlace={selectedPlace}
+              onPlaceSelected={this.onPlaceSelected}
+              onInfoWindowClose={this.onInfoWindowClose}
             />
           </div>
         </div>
